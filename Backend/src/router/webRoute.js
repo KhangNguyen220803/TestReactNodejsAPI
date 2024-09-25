@@ -6,18 +6,17 @@ import User from '../controllers/userController'
 const router = express.Router()
 const initWebRouter = (app) => {
 
-    // router.get('/', (req, res) => {
-    //     res.send('birds home page')
-    // })
 
-    // router.get('/about', (req, res) => {
-    //     res.send('aboit birds')
-    // })
 
     router.get('/', getHomePage)
     router.get('/about', aboutPage)
+
+
+    router.get('/api/dataUser/', User.sendDataUser);
+
     router.get('/user', User.getAllUser)
-    router.get('/addUser', User.showUserForm)
+
+    // router.get('/addUser', User.showUserForm)
     router.get('/editUser/:masv', User.fillUserForm)
     router.post('/editUser/:masv', User.updateUser)
     router.post('/addUser', User.addUser)

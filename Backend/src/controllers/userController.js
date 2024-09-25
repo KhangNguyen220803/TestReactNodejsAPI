@@ -38,6 +38,15 @@ const upload = multer({
 const getAllUser = async (req, res) => {
     let userList = await userModel.getAllUser()
     res.render('src/views/listUser.ejs', { data: { title: 'list user', page: 'listUser', rows: userList } })
+ 
+
+}
+
+const sendDataUser = async (req, res) => {
+    let userList = await userModel.getAllUser()
+    
+    res.json(userList)
+
 }
 
 
@@ -70,12 +79,12 @@ const addUser = async (req, res) => {
             // Lấy dữ liệu từ body request
             let { masv, hoten, gioitinh, diachi, dienthoai, cccd, lop } = req.body;
             let hinhanh = req.file ? req.file.filename : null;
-
+            
             // Lưu user vào cơ sở dữ liệu
             await userModel.addUser(masv, hoten, gioitinh, diachi, dienthoai, cccd, lop, hinhanh);
 
             // Chuyển hướng sau khi thành công
-            res.redirect('/addUser');
+            // res.redirect('/addUser');
 
         });
     } catch (error) {
@@ -99,7 +108,7 @@ const fillUserForm = async (req, res) => {
 //     // await userModel.updateUser(hoten, gioitinh, diachi, dienthoai, cccd, lop, masv)
 //     // res.redirect(masv)
 
-   
+
 
 // }
 
@@ -116,7 +125,7 @@ const updateUser = async (req, res) => {
             let hinhanh = req.file ? req.file.filename : hinhanhcu;
 
             // Lưu user vào cơ sở dữ liệu
-            await userModel.updateUser( hoten, gioitinh, diachi, dienthoai, cccd, lop, hinhanh, masv);
+            await userModel.updateUser(hoten, gioitinh, diachi, dienthoai, cccd, lop, hinhanh, masv);
 
             // Chuyển hướng sau khi thành công
             res.redirect('../user');
@@ -156,6 +165,6 @@ const searchUser = async (req, res) => {
 //     res.render('src/views/home.ejs', {data: {title:'create new user' , page:'createNewUser'}})
 // }
 
-export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser }
+export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser, sendDataUser}
 
 

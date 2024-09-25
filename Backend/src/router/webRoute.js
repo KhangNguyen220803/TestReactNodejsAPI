@@ -16,11 +16,11 @@ const initWebRouter = (app) => {
 
     router.get('/user', User.getAllUser)
 
-    // router.get('/addUser', User.showUserForm)
+    router.get('/addUser', User.showUserForm)
     router.get('/editUser/:masv', User.fillUserForm)
     router.post('/editUser/:masv', User.updateUser)
     router.post('/addUser', User.addUser)
-    router.post('/deleteUser', User.deleteUser)
+    router.delete('/deleteUser/:masv', User.deleteUser);
     router.post('/searchUser', User.searchUser)
     router.get('/detailUser/:masv', User.getDetailUser)
 

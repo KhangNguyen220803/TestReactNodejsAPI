@@ -86,6 +86,8 @@ const addUser = async (req, res) => {
             // Chuyển hướng sau khi thành công
             // res.redirect('/addUser');
 
+            
+
         });
     } catch (error) {
         res.status(500).send({ message: 'Server Error' });
@@ -137,9 +139,9 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    let { masv } = req.body
+    let masv = req.params.masv
     await userModel.deleteUser(masv)
-    res.redirect('user')
+  
 
 
 }

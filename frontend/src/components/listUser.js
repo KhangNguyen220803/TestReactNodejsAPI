@@ -98,9 +98,9 @@ function ListUser() {
                 </button>
               </td>
               <td>
-                <button className="btn btn-link">
+                <a className="btn btn-link" href={`http://localhost:6868/editUser/${user.masv}`}>
                   <FaEdit />
-                </button>
+                </a>
               </td>
               <td>
                 <form onSubmit={(e) => handleDelete(e, user.masv)}>

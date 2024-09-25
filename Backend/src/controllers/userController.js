@@ -101,6 +101,13 @@ const fillUserForm = async (req, res) => {
 
 }
 
+const sendFillUserForm = async (req, res) => {
+    let masv = req.params.masv
+    let dataUser = await userModel.fillUserForm(masv)
+   
+    res.json(dataUser)
+}
+
 // const updateUser = async (req, res) => {
 //     // console.log(req.body)
 //     // // let role = 0
@@ -167,6 +174,6 @@ const searchUser = async (req, res) => {
 //     res.render('src/views/home.ejs', {data: {title:'create new user' , page:'createNewUser'}})
 // }
 
-export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser, sendDataUser}
+export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser, sendDataUser, sendFillUserForm}
 
 

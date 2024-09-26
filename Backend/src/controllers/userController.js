@@ -59,6 +59,16 @@ const getDetailUser = async (req, res) => {
 
 }
 
+const sendDataUserDetail = async (req, res) => {
+    
+    let masv = req.params.masv
+    let userDetail = await userModel.getDetailUser(masv)
+    res.json(userDetail)
+    
+  
+    
+}
+
 const showUserForm = async (req, res) => {
 
 
@@ -174,6 +184,6 @@ const searchUser = async (req, res) => {
 //     res.render('src/views/home.ejs', {data: {title:'create new user' , page:'createNewUser'}})
 // }
 
-export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser, sendDataUser, sendFillUserForm}
+export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser, sendDataUser, sendFillUserForm, sendDataUserDetail}
 
 

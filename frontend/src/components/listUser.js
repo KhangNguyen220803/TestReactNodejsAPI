@@ -93,9 +93,10 @@ function ListUser() {
                 />
               </td>
               <td>
-                <button className="btn btn-link">
-                  <FaEye />
-                </button>
+                
+                <a className="btn btn-link" href={`http://localhost:6868/detailUser/${user.masv}`}>
+                <FaEye />
+                </a>
               </td>
               <td>
                 <a className="btn btn-link" href={`http://localhost:6868/editUser/${user.masv}`}>

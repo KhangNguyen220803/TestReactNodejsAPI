@@ -14,6 +14,7 @@ const initWebRouter = (app) => {
 
     router.get('/api/dataUser/', User.sendDataUser);
     router.get('/api/dataUserForm/:masv', User.sendFillUserForm);
+    router.get('/api/dataUserDetail/:masv', User.sendDataUserDetail);
 
     router.get('/user', User.getAllUser)
 

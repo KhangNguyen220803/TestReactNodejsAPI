@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ListUser from './components/listUser';
 import AddUser from './components/addUser';
 import EditUser from './components/editUser';
-
+import DetailUser from './components/detailUser'
 
 
 
@@ -26,6 +26,7 @@ function App() {
                 <Route path="/listUser" element={<ListUser />} />
                 <Route path="/editUser/:masvne" element={<EditUser />} />
                 <Route path="/addUser" element={<AddUser />} />
+                <Route path="/detailUser/:masvne" element={<DetailUser />} />
           
             </Routes>
         </Router>

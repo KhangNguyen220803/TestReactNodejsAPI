@@ -34,51 +34,23 @@ const upload = multer({
 
 // ---------------------------------------------------------------------------------------------
 
-
-const getAllUser = async (req, res) => {
-    let userList = await userModel.getAllUser()
-    res.render('src/views/listUser.ejs', { data: { title: 'list user', page: 'listUser', rows: userList } })
- 
-
-}
-
 const sendDataUser = async (req, res) => {
+
     let userList = await userModel.getAllUser()
-    
     res.json(userList)
-
-}
-
-
-const getDetailUser = async (req, res) => {
-    // if (isAuthentication(req, res) == true) {
-    let masv = req.params.masv
-    let userDetail = await userModel.getDetailUser(masv)
-    res.render('src/views/detailUser.ejs', { data: { title: 'detail user', page: 'detailUser', rows: userDetail } })
-    // }
-
 }
 
 const sendDataUserDetail = async (req, res) => {
-    
+
     let masv = req.params.masv
     let userDetail = await userModel.getDetailUser(masv)
     res.json(userDetail)
-    
-  
-    
 }
 
-const showUserForm = async (req, res) => {
 
-
-    res.render('src/views/addUser.ejs', { data: { title: 'add user', page: 'addUser' } })
-
-
-
-}
 
 const addUser = async (req, res) => {
+
     try {
         // Dùng multer để upload ảnh
         upload.single('hinhanh')(req, res, async (err) => {
@@ -89,49 +61,25 @@ const addUser = async (req, res) => {
             // Lấy dữ liệu từ body request
             let { masv, hoten, gioitinh, diachi, dienthoai, cccd, lop } = req.body;
             let hinhanh = req.file ? req.file.filename : null;
-            
+
             // Lưu user vào cơ sở dữ liệu
             await userModel.addUser(masv, hoten, gioitinh, diachi, dienthoai, cccd, lop, hinhanh);
-
-            // Chuyển hướng sau khi thành công
-            // res.redirect('/addUser');
-
-            
-
         });
     } catch (error) {
         res.status(500).send({ message: 'Server Error' });
     }
 };
 
-const fillUserForm = async (req, res) => {
-    let masv = req.params.masv
-    let dataUser = await userModel.fillUserForm(masv)
-    res.render('src/views/editUser.ejs', { data: { title: 'edit user', page: 'editUser', rows: dataUser } })
-
-}
-
 const sendFillUserForm = async (req, res) => {
+
     let masv = req.params.masv
     let dataUser = await userModel.fillUserForm(masv)
-   
     res.json(dataUser)
 }
 
-// const updateUser = async (req, res) => {
-//     // console.log(req.body)
-//     // // let role = 0
-//     // let{ hoten, gioitinh, diachi, dienthoai, cccd, lop, masv} = req.body
-//     // // if('role' in req.body)
-//     //     // role=1
-//     // await userModel.updateUser(hoten, gioitinh, diachi, dienthoai, cccd, lop, masv)
-//     // res.redirect(masv)
-
-
-
-// }
 
 const updateUser = async (req, res) => {
+
     try {
         // Dùng multer để upload ảnh
         upload.single('hinhanh')(req, res, async (err) => {
@@ -145,10 +93,6 @@ const updateUser = async (req, res) => {
 
             // Lưu user vào cơ sở dữ liệu
             await userModel.updateUser(hoten, gioitinh, diachi, dienthoai, cccd, lop, hinhanh, masv);
-
-            // Chuyển hướng sau khi thành công
-            res.redirect('../user');
-
         });
     } catch (error) {
         res.status(500).send({ message: 'Server Error' });
@@ -158,32 +102,82 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     let masv = req.params.masv
     await userModel.deleteUser(masv)
-  
-
-
 }
 
 
 
 const searchUser = async (req, res) => {
     let { search } = req.body
-    let searchreturn = await userModel.searchUser(search)
-    res.render('src/views/searchUser.ejs', { data: { title: 'search user', page: 'searchUser', rows: searchreturn } })
+    // let searchreturn = await userModel.searchUser(search)
+    // res.render('src/views/searchUser.ejs', { data: { title: 'search user', page: 'searchUser', rows: searchreturn } })
 
-    // res.redirect('user')
+    res.redirect(`/api/searchUser/${search}`)
+    
 
 
 }
 
+const sendsearchUser = async (req, res) => {
+    // let { search } = req.body
+    let search = req.params.search
+
+    let searchreturn = await userModel.searchUser(search)
+    res.json(searchreturn)
+}
+
+
+
+export default { addUser, deleteUser, updateUser, sendDataUser, sendFillUserForm, sendDataUserDetail,searchUser, sendsearchUser }
 
 
 
 
 
-// const createUser = (req, res) => {
-//     res.render('src/views/home.ejs', {data: {title:'create new user' , page:'createNewUser'}})
+
+
+
+
+
+
+
+
+
+
+
+// EJS CŨ------------------------------------------------------------------------------------------
+// const fillUserForm = async (req, res) => {
+//     let masv = req.params.masv
+//     let dataUser = await userModel.fillUserForm(masv)
+//     res.render('src/views/editUser.ejs', { data: { title: 'edit user', page: 'editUser', rows: dataUser } })
+
 // }
 
-export default { getAllUser, getDetailUser, addUser, showUserForm, deleteUser, fillUserForm, updateUser, searchUser, sendDataUser, sendFillUserForm, sendDataUserDetail}
+
+
+// const getDetailUser = async (req, res) => {
+//     // if (isAuthentication(req, res) == true) {
+//     let masv = req.params.masv
+//     let userDetail = await userModel.getDetailUser(masv)
+//     res.render('src/views/detailUser.ejs', { data: { title: 'detail user', page: 'detailUser', rows: userDetail } })
+//     // }
+
+// }
+
+
+// const showUserForm = async (req, res) => {
+//     res.render('src/views/addUser.ejs', { data: { title: 'add user', page: 'addUser' } })
+// }
+
+
+// const getAllUser = async (req, res) => {
+//     let userList = await userModel.getAllUser()
+//     res.render('src/views/listUser.ejs', { data: { title: 'list user', page: 'listUser', rows: userList } })
+
+
+// }
+
+
+
+
 
 

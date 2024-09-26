@@ -1,61 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Nhập useNavigate
 
-export default function Header() {
+const Header = () => {
+    const [search, setSearch] = useState('');
+    const navigate = useNavigate(); // Khai báo navigate bằng useNavigate hook
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('search', search);
+
+        const response = await fetch('http://localhost:3000/searchUser', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            // alert(data.message);
+            navigate(`/searchUser/${search}`); // Chuyển hướng đến trang tìm kiếm với từ khóa
+        } else {
+            // alert('Error adding user: ' + data.message);
+        }
+    };
+
     return (
-        <>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a
-                                    className="nav-link active hover-highlight"
-                                    aria-current="page"
-                                    href="http://localhost:6868/listUser"
-                                >
-                                    Danh Sách Sinh Viên
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a
-                                    className="nav-link active hover-highlight"
-                                    aria-current="page"
-                                    href="http://localhost:6868/addUser"
-                                >
-                                    Thêm Sinh Viên
-                                </a>
-                            </li>
-                        </ul>
-                        <form
-                            className="d-flex"
-                            style={{ width: '500px', marginLeft: '200px' }}
-                            role="search"
-                            method="post"
-                            action="/searchUser"
-                        >
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                                name="search"
-                            />
-                            <input className="btn btn-primary" type="submit" value="Search" />
-                        </form>
-                    </div>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <a className="nav-link active hover-highlight" href="/listUser"> {/* Đường dẫn tương đối */}
+                                Danh Sách Sinh Viên
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link active hover-highlight" href="/addUser"> {/* Đường dẫn tương đối */}
+                                Thêm Sinh Viên
+                            </a>
+                        </li>
+                    </ul>
+                    <form className="d-flex" style={{ width: '500px', marginLeft: '200px' }} onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            className="form-control me-2"
+                            id="masv"
+                            placeholder="Search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            required
+                        />
+                        <input className="btn btn-primary" type="submit" value="Search" />
+                    </form>
                 </div>
-            </nav>
-        </>
+            </div>
+        </nav>
     );
-}
+};
+
+export default Header;

@@ -108,19 +108,11 @@ const deleteUser = async (req, res) => {
 
 const searchUser = async (req, res) => {
     let { search } = req.body
-    // let searchreturn = await userModel.searchUser(search)
-    // res.render('src/views/searchUser.ejs', { data: { title: 'search user', page: 'searchUser', rows: searchreturn } })
-
     res.redirect(`/api/searchUser/${search}`)
-    
-
-
 }
 
 const sendsearchUser = async (req, res) => {
-    // let { search } = req.body
     let search = req.params.search
-
     let searchreturn = await userModel.searchUser(search)
     res.json(searchreturn)
 }
@@ -140,41 +132,6 @@ export default { addUser, deleteUser, updateUser, sendDataUser, sendFillUserForm
 
 
 
-
-
-
-
-// EJS CŨ------------------------------------------------------------------------------------------
-// const fillUserForm = async (req, res) => {
-//     let masv = req.params.masv
-//     let dataUser = await userModel.fillUserForm(masv)
-//     res.render('src/views/editUser.ejs', { data: { title: 'edit user', page: 'editUser', rows: dataUser } })
-
-// }
-
-
-
-// const getDetailUser = async (req, res) => {
-//     // if (isAuthentication(req, res) == true) {
-//     let masv = req.params.masv
-//     let userDetail = await userModel.getDetailUser(masv)
-//     res.render('src/views/detailUser.ejs', { data: { title: 'detail user', page: 'detailUser', rows: userDetail } })
-//     // }
-
-// }
-
-
-// const showUserForm = async (req, res) => {
-//     res.render('src/views/addUser.ejs', { data: { title: 'add user', page: 'addUser' } })
-// }
-
-
-// const getAllUser = async (req, res) => {
-//     let userList = await userModel.getAllUser()
-//     res.render('src/views/listUser.ejs', { data: { title: 'list user', page: 'listUser', rows: userList } })
-
-
-// }
 
 
 

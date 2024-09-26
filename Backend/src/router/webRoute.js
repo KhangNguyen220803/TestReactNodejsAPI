@@ -1,6 +1,4 @@
 import express from 'express'
-// import getHomePage from '../controllers/homeController'
-// import aboutPage from '../controllers/aboutController'
 import User from '../controllers/userController'
 
 const router = express.Router()
@@ -22,26 +20,6 @@ const initWebRouter = (app) => {
     router.post('/addUser', User.addUser)
 
     router.delete('/deleteUser/:masv', User.deleteUser);
-
-
-// ejs cũ--------------------------------------------------
-
-    // router.post('/searchUser/:search', User.searchUser)
-
-    // router.get('/editUser/:masv', User.fillUserForm)
-
-    // router.post('/searchUser', User.searchUser)
-
-    // router.get('/user', User.getAllUser)
-
-    // router.get('/', getHomePage)
-
-    // router.get('/about', aboutPage)
-
-    // router.get('/addUser', User.showUserForm)
-
-    // router.get('/detailUser/:masv', User.getDetailUser)
-// ejs cũ--------------------------------------------------
 
 
     return app.use('/', router)
